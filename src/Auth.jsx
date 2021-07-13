@@ -34,8 +34,7 @@ class Auth extends React.Component {
 
   onLogout = () => {
     this.setState({
-      //isLoggedIn: true,
-      isLogging: false,
+      isLoggedIn: false,
     });
   };
 
