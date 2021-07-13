@@ -11,48 +11,60 @@ import Spinner from './Spinner.jsx';
 //4.show login after logout click
 
 class Auth extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLoggedIn: true,
-      isLogging: false,
-    };
-  }
-
+  state = {
+    isLoggedIn: false,
+    isLogging: false,
+  };
   onLogin = () => {
     this.setState({
-      isLoggedIn: true,
       isLogging: true,
     });
 
+    console.log('Set state called!')
+
+    //input: func, ms
+    //output: undefined
     setTimeout(() => {
       this.setState({
-        isLoggedIn: false,
+        isLoggedIn: true,
         isLogging: false,
       });
     }, 2000);
-  };
+  }
 
   onLogout = () => {
     this.setState({
-      isLoggedIn: true,
+      //isLoggedIn: true,
       isLogging: false,
     });
   };
 
   render() {
-    let button;
-    if (this.state.isLoggedIn) {
-      button = <Login onLogin={this.onLogin} />;
-    } else {
-      button = <Logout onLogout={this.onLogout} />;
+    // let button;
+    // if (this.state.isLoggedIn) {
+    //   button = <Login onLogin={this.onLogin} />;
+    // } else {
+    //   button = <Logout onLogout={this.onLogout} />;
+    // }
+    // return <div>{this.state.isLogging ? <Spinner size={20} /> : button}</div>;
+
+    //ternary
+    //condition ? RESULT1 : RESULT2
+    const { isLogging, isLoggedIn } = this.state;
+    if (isLogging) {
+      return <Spinner size={50} />;
     }
-    return <div>{this.state.isLogging ? <Spinner size={20} /> : button}</div>;
+    if (isLoggedIn) {
+      return <Logout onLogout={this.onLogout} />;
+    }
+    return <Login onLogin={this.onLogin} />;
+  
   }
 }
 
 export default Auth;
+
+//Cannot read property 'setState' of undefined -втрата контексту
 
       // <>
       //   {this.state.isLoggedIn ? (
